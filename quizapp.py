@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash
+# login system
+from werkzeug.security import check_password_hash
+from flask import session
+
 
 app = Flask(__name__)
 
@@ -40,6 +44,38 @@ def signup_page():
         return redirect(url_for("signup_page"))
 
     return render_template("signup.html")
+
+#login page logic 
+@app.route("/login", methods=["GET", "POST"])
+def login_page():
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+
+        user = user_info.query.filter_by(email=email).first()
+
+        if user and check_password_hash(user.password, password):
+            session["user_id"] = user.id
+            session["username"] = user.user_name
+            flash("Login successful!", "success")
+            return redirect(url_for("dashboard"))
+        else:
+            flash("Invalid email or password", "danger")
+
+    return render_template("login.html")
+
+#dash board 
+
+@app.route("/dashboard")
+def dashboard():
+    if "user_id" not in session:
+        flash("Please login first", "warning")
+        return redirect(url_for("login_page"))
+
+    return f"Welcome {session['username']} 🎉"
+
+
+
 
 # ---------------- RUN ----------------
 if __name__ == "__main__":
