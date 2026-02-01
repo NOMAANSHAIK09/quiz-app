@@ -14,33 +14,36 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# ---------------- MODEL ----------------
+# ---------------- MODEL ---------------- it create a table if not exixt 
 class user_info(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String(100))
     email = db.Column(db.String(120))
     password = db.Column(db.String(200))
-# ---------------- ROUTE ----------------
+# ---------------- ROUTE ---------------- first signup logic if method is post \
+#the it get data from form page and stor in data base hashed password used for passsword securaty 
 @app.route("/signup", methods=("GET", "POST"))
 def signup_page():
     if request.method == "POST": 
+        #extracting form data
         user_name = request.form["username"]
         email = request.form["email"]
         password = request.form["password"]
 
         # hash password
         hashed_password = generate_password_hash(password)
-
+        # it collect data and store in database
         user = user_info(
             user_name=user_name,
             email=email,
             password=hashed_password
         )
-
+        #add and comit to data base 
         db.session.add(user)
         db.session.commit()
-
+        #create a popo up msg 
         flash("Account created successfully!", "success")
+        #restart the signup page
         return redirect(url_for("signup_page"))
 
     return render_template("signup.html")
@@ -48,13 +51,16 @@ def signup_page():
 #login page logic 
 @app.route("/login", methods=["GET", "POST"])
 def login_page():
+    # collect data from login page form
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
 
+        #chech weather email matches with database or not
         user = user_info.query.filter_by(email=email).first()
-
+        #check password hash 
         if user and check_password_hash(user.password, password):
+            # create session for login user 
             session["user_id"] = user.id
             session["username"] = user.user_name
             flash("Login successful!", "success")
@@ -72,7 +78,13 @@ def dashboard():
         flash("Please login first", "warning")
         return redirect(url_for("login_page"))
 
-    return f"Welcome {session['username']} 🎉"
+    return render_template("dashboard.html")
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    flash("Logged out successfully", "info")
+    return redirect(url_for("login_page"))
 
 
 
