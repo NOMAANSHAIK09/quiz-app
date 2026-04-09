@@ -1,0 +1,168 @@
+
+:root {
+    --primary: #4F46E5;
+    --primary-hover: #4338CA;
+    --bg: #EEF2FF;
+    --surface: rgba(255, 255, 255, 0.8);
+    --border: rgba(255, 255, 255, 0.5);
+    --text-main: #1E1B4B;
+    --text-muted: #475569;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg);
+    background-image: fixed;
+    background-image: radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.05) 0px, transparent 50%);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 1. Header & Progress Area */
+.header {
+    max-width: 700px;
+    width: 100%;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #0F172A;
+}
+
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+    z-index: 1000;
+}
+
+/* 2. Question Cards */
+.quiz-container {
+    max-width: 700px;
+    width: 100%;
+}
+
+.question-card {
+    background: var(--surface);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    padding: 32px;
+    border-radius: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.question-header {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.q-badge {
+    background: var(--primary);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    height: fit-content;
+}
+
+.question-text {
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #1E293B;
+}
+
+/* 3. Interactive Option Labels */
+.options-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.option-item {
+    position: relative;
+}
+
+.option-item input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.option-label {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+    color: #475569;
+}
+
+/* Option Selected State */
+.option-item input:checked + .option-label {
+    background: rgba(79, 70, 229, 0.05);
+    border-color: var(--primary);
+    color: var(--primary);
+    font-weight: 700;
+    box-shadow: 0 0 0 1px var(--primary);
+}
+
+.option-label:hover:not(input:checked + .option-label) {
+    border-color: var(--primary);
+    background: rgba(79, 70, 229, 0.02);
+}
+
+/* 4. Submission Area */
+.submit-btn {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 40px auto;
+    padding: 18px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.2);
+}
+
+.submit-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.2);
+}
+
+@media (max-width: 600px) {
+    .question-card { padding: 24px; }
+    .question-text { font-size: 1.05rem; }
+}

@@ -1,224 +1,125 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Admin Dashboard</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            margin: 0;
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #3b82f6;
-        }
-
-        /* 🔥 CARDS */
-        .cards {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            width: 200px;
-            text-align: center;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .card h2 {
-            color: #111;
-        }
-
-        /* 🔥 TABLE */
-        table {
-            width: 90%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        th {
-            background: #3b82f6;
-            color: white;
-            padding: 12px;
-        }
-
-        td {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            text-align: center;
-        }
-
-        tr:hover {
-            background: #f1f5f9;
-        }
-
-        h2 {
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        /* 🔥 LOGOUT BUTTON */
-        .logout {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: red;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 10px;
-            text-decoration: none;
-        }
-
-        .logout:hover {
-            background: darkred;
-        }
-        @media (max-width: 600px) {
-
-    body {
-        padding: 15px 10px;
-    }
-
-    h1 {
-        font-size: 22px;
-    }
-
-    /* Cards stack */
-    .cards {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-    }
-
-    .card {
-        width: 90%;
-        padding: 15px;
-    }
-
-    .card h2 {
-        font-size: 18px;
-    }
-
-    /* Table responsive */
-    table {
-        width: 100%;
-        font-size: 13px;
-    }
-
-    th, td {
-        padding: 8px;
-    }
-
-    /* Enable scroll if needed */
-    table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
-
-    h2 {
-        font-size: 20px;
-        margin-top: 25px;
-    }
-
-    /* Logout button adjust */
-    .logout {
-        top: 10px;
-        right: 10px;
-        padding: 8px 12px;
-        font-size: 12px;
-    }
-}
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | QuizMaster</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
+    <div class="container">
+        <nav>
+            <div class="admin-logo">
+                <i data-lucide="shield-check"></i>
+                <span>Admin Console</span>
+            </div>
+            <a href="/logout" class="logout-btn">
+                <i data-lucide="log-out" style="width: 18px; height: 18px;"></i>
+                Sign Out
+            </a>
+        </nav>
 
-<a href="/logout" class="logout">Logout</a>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-label">Total Users</span>
+                <span class="stat-value">{{ total_users }}</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Quizzes Taken</span>
+                <span class="stat-value">{{ total_quizzes }}</span>
+            </div>
+        </div>
 
-<h1>📊 Admin Dashboard</h1>
+        <div class="section">
+            <div class="section-header">
+                <i data-lucide="trophy" style="color: #F59E0B;"></i>
+                <h2>Top Performers</h2>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Score</th>
+                            <th>Topic</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for t in top_scores %}
+                        <tr>
+                            <td>{{ t[0] }}</td>
+                            <td><span class="score-pill">{{ t[1] }}</span></td>
+                            <td>{{ t[2] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-<!-- 🔥 SUMMARY CARDS -->
-<div class="cards">
-    <div class="card">
-        <h3>Total Users</h3>
-        <h2>{{ total_users }}</h2>
+        <div class="section">
+            <div class="section-header">
+                <i data-lucide="activity" style="color: var(--primary);"></i>
+                <h2>Recent Activity</h2>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Topic</th>
+                            <th>Score</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in recent %}
+                        <tr>
+                            <td>{{ r[0] }}</td>
+                            <td>{{ r[1] }}</td>
+                            <td><span class="score-pill">{{ r[2] }}</span></td>
+                            <td style="color: var(--text-muted); font-size: 0.8rem;">{{ r[3].strftime('%H:%M %p') }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <i data-lucide="database" style="color: #6366F1;"></i>
+                <h2>System Records</h2>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Topic</th>
+                            <th>Level</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in all_scores %}
+                        <tr>
+                            <td>{{ s[0] }}</td>
+                            <td>{{ s[1] }}</td>
+                            <td><span style="text-transform: capitalize; opacity: 0.7;">{{ s[2] }}</span></td>
+                            <td><span class="score-pill">{{ s[3] }}</span></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
-    <div class="card">
-        <h3>Total Quizzes</h3>
-        <h2>{{ total_quizzes }}</h2>
-    </div>
-</div>
-
-<!-- 🏆 TOP SCORES -->
-<h2>🏆 Top Scores</h2>
-<table>
-    <tr>
-        <th>User</th>
-        <th>Score</th>
-        <th>Topic</th>
-    </tr>
-
-    {% for t in top_scores %}
-    <tr>
-        <td>{{ t[0] }}</td>
-        <td>{{ t[1] }}</td>
-        <td>{{ t[2] }}</td>
-    </tr>
-    {% endfor %}
-</table>
-
-<!-- 📅 RECENT ACTIVITY -->
-<h2>📅 Recent Activity</h2>
-<table>
-    <tr>
-        <th>User</th>
-        <th>Topic</th>
-        <th>Score</th>
-        <th>Date</th>
-    </tr>
-
-    {% for r in recent %}
-    <tr>
-        <td>{{ r[0] }}</td>
-        <td>{{ r[1] }}</td>
-        <td>{{ r[2] }}</td>
-        <td>{{ r[3] }}</td>
-    </tr>
-    {% endfor %}
-</table>
-
-<!-- 📋 ALL DATA -->
-<h2>📋 All Quiz Records</h2>
-<table>
-    <tr>
-        <th>User</th>
-        <th>Topic</th>
-        <th>Difficulty</th>
-        <th>Score</th>
-        <th>Date</th>
-    </tr>
-
-    {% for s in all_scores %}
-    <tr>
-        <td>{{ s[0] }}</td>
-        <td>{{ s[1] }}</td>
-        <td>{{ s[2] }}</td>
-        <td>{{ s[3] }}</td>
-        <td>{{ s[4] }}</td>
-    </tr>
-    {% endfor %}
-</table>
-
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>

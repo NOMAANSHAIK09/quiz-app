@@ -2,387 +2,101 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AI Quiz Master</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
-    <style>
-        /* body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background:#fff5d7;
-    text-align: center;
-} */
-
-/* GLOBAL */
-body {
-    margin: 0;
-    text-align: center;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: linear-gradient(135deg, #0f172a, #1e3a8a, #9333ea);
-    min-height: 100vh;   /* ✅ FIXED */
-    color: white;
-    overflow-x: hidden;
-}
-
-/* Glow effects */
-body::before,
-body::after {
-    content: "";
-    position: fixed;
-    width: 300px;
-    height: 300px;
-    filter: blur(120px);
-    opacity: 0.5;
-    z-index: 0;
-}
-
-body::before {
-    background: #3b82f6;
-    top: -100px;
-    left: -100px;
-}
-
-body::after {
-    background: #9333ea;
-    bottom: -100px;
-    right: -100px;
-}
-
-/* Container */
-.container {
-    padding: 40px 15px;
-    position: relative;
-    z-index: 1;
-}
-
-/* Logo */
-.logo {
-    font-size: 35px;
-    background: #3b82f6;
-    color: white;
-    width: 65px;
-    height: 65px;
-    line-height: 65px;
-    border-radius: 15px;
-    margin: auto;
-}
-
-/* Headings */
-h1 {
-    margin-top: 15px;
-    font-size: 32px;
-}
-
-/* Subtitle */
-.subtitle {
-    max-width: 600px;
-    margin: 15px auto;
-    color: #e2e8f0;
-    padding: 0 10px;
-}
-
-/* Buttons */
-.buttons {
-    margin-top: 25px;
-}
-
-.btn {
-    padding: 12px 20px;
-    margin: 10px;
-    border-radius: 10px;
-    font-weight: bold;
-    display: inline-block;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.primary {
-    background: #3b82f6;
-    color: white;
-}
-
-.outline {
-    border: 2px solid #3b82f6;
-    color: #3b82f6;
-}
-
-.btn:hover {
-    transform: scale(1.05);
-}
-
-/* Features */
-.features {
-    display: flex;
-    justify-content: center;
-    margin-top: 40px;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-/* Feature box */
-.feature-box {
-    background: white;
-    color: black;
-    padding: 20px;
-    width: 260px;
-    border-radius: 15px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
-    transition: 0.3s;
-}
-
-.feature-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
-}
-
-/* Icons */
-.icon {
-    font-size: 28px;
-    margin-bottom: 10px;
-}
-
-/* Top bar */
-.top-bar {
-    position: fixed;
-    top: 15px;
-    right: 20px;
-    font-weight: bold;
-    z-index: 10;
-}
-
-.login-link {
-    color: white;
-    text-decoration: none;
-}
-
-/* Welcome */
-.welcome {
-    background: rgba(255,255,255,0.2);
-    padding: 6px 12px;
-    border-radius: 10px;
-}
-
-/* Logout */
-.logout-btn {
-    position: fixed;
-    top: 15px;
-    left: 20px;
-    background: linear-gradient(to right, #ef4444, #dc2626);
-    color: white;
-    padding: 8px 14px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    z-index: 10;
-}
-
-.logout-btn:hover {
-    transform: scale(1.05);
-}
-
-/* Flash */
-.flash {
-    position: fixed;
-    top: 60px;
-    right: 20px;
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-weight: bold;
-    z-index: 10;
-}
-
-.flash.info {
-    background: #3b82f6;
-}
-
-/* History button */
-.history-btn {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    background: #3b82f6;
-    color: white;
-    padding: 10px 16px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    transition: 0.3s;
-}
-
-.history-btn:hover {
-    background: #2563eb;
-    transform: scale(1.05);
-}
-
-/* 🔥 MOBILE RESPONSIVE */
-@media (max-width: 600px) {
-
-    h1 {
-        font-size: 24px;
-    }
-
-    .logo {
-        width: 55px;
-        height: 55px;
-        line-height: 55px;
-        font-size: 28px;
-    }
-
-    .btn {
-        display: block;
-        width: 90%;
-        margin: 10px auto;
-    }
-        .features {
-        flex-direction: column;   /* 🔥 stack vertically */
-        align-items: center;      /* center them */
-    }
-
-    .feature-box {
-        width: 90%;               /* full width look */
-        margin-bottom: 15px;      /* spacing between cards */
-    }
-
-
-    .feature-box {
-        width: 90%;
-    }
-
-    .top-bar {
-        right: 10px;
-        font-size: 14px;
-    }
-
-    .logout-btn {
-        top: 10px;
-        left: 10px;
-        padding: 6px 10px;
-        font-size: 12px;
-    }
-
-    .history-btn {
-        bottom: 15px;
-        left: 15px;
-        padding: 8px 12px;
-        font-size: 12px;
-    }
-   
-
-    .features {
-        flex-direction: column;   /* 🔥 stack vertically */
-        align-items: center;      /* center them */
-    }
-
-    .feature-box {
-        width: 90%;               /* full width look */
-        margin-bottom: 15px;      /* spacing between cards */
-    }
-
-}
-
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizMaster | AI-Powered Learning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <div class="top-bar">
-    {% if outputs %}
-        <span class="welcome">👋 {{ outputs }}</span>
-    {% else %}
-        <a href="{{ url_for('login_page') }}" class="login-link">Login</a>
-    {% endif %}
-</div>
-<br/>
-<br/>
-<!-- <div>
-{% if session.get('username') %}
-<form action="{{ url_for('logout') }}" method="POST" style="position:fixed; top:20px; left:20px;">
-    <button type="submit" class="logout-btn">Logout</button>
-</form>
-{% endif %}
-</div> -->
+    <nav>
+        <a href="/" class="nav-logo">
+            <i data-lucide="brain-circuit"></i>
+            <span>QuizMaster</span>
+        </a>
+        <div class="nav-actions">
+            {% if session.get('username') %}
+                <span style="font-weight: 600; font-size: 0.9rem;">{{ session.get('username') }}</span>
+                <form action="{{ url_for('logout') }}" method="POST" style="display: inline;">
+                    <button type="submit" class="btn btn-secondary" style="padding: 8px 16px;">Logout</button>
+                </form>
+            {% else %}
+                <a href="{{ url_for('login_page') }}" class="btn btn-secondary">Login</a>
+                <a href="{{ url_for('signup_page') }}" class="btn btn-primary">Sign Up</a>
+            {% endif %}
+        </div>
+    </nav>
 
-<a href="{{ url_for('history') }}" class="history-btn">
-    📊 History
-</a>
+    <main class="hero">
+        <div class="badge">
+            <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
+            AI-POWERED INSIGHTS
+        </div>
+        <h1>Master Any Subject <br>With Intelligent Quizzes</h1>
+        <p class="subtitle">
+            Generate customized assessments in seconds. Our AI analyzes your topic and crafts questions that help you learn faster and retain more.
+        </p>
 
-<div class="container">
-
-    <!-- Logo -->
-    <div class="logo">🧠</div>
-
-    <!-- Title -->
-    <h1>AI Quiz Master</h1>
-
-    <!-- Subtitle -->
-    <p class="subtitle">
-        Test your knowledge with AI-generated quizzes tailored to your interests.
-        Choose your topic, select difficulty, and challenge yourself!
-    </p>
-
-    <!-- Buttons -->
-<div class="buttons">
-    {% if session.get('username') %}
-        <a href="{{url_for('start_quiz')}}" class="btn primary">Start Quiz</a>
-    {% else %}
-        <a href="{{url_for('login_page')}}" class="btn outline">Login / Signup</a>
-    {% endif %}
-</div>
-<div>
-{% if session.get('username') %}
-<form action="{{ url_for('logout') }}" method="POST" style="position:fixed; top:20px; left:20px;">
-    <button type="submit" class="logout-btn">Logout</button>
-</form>
-{% endif %}
-</div>
-    <!-- Features -->
-    <div class="features">
-
-        <div class="feature-box">
-            <div class="icon">🎯</div>
-            <h3>Choose Your Topic</h3>
-            <p>Pick any subject you want to master</p>
+        <div class="cta-group">
+            {% if session.get('username') %}
+                <a href="{{url_for('start_quiz')}}" class="btn btn-primary">
+                    <i data-lucide="play"></i> Start Quiz
+                </a>
+                <a href="{{url_for('history')}}" class="btn btn-secondary">
+                    <i data-lucide="history"></i> View Progress
+                </a>
+            {% else %}
+                <a href="{{url_for('login_page')}}" class="btn btn-primary">
+                    Get Started Free <i data-lucide="arrow-right"></i>
+                </a>
+            {% endif %}
         </div>
 
-        <div class="feature-box">
-            <div class="icon">⚡</div>
-            <h3>Set Difficulty</h3>
-            <p>Easy, Medium, or Hard challenges</p>
+        <div class="features">
+            <div class="feature-card">
+                <div class="icon-box"><i data-lucide="target"></i></div>
+                <h3>Personalized Topics</h3>
+                <p>From Advanced Quantum Physics to French Vocabulary, create quizzes on any subject imaginable.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box"><i data-lucide="zap"></i></div>
+                <h3>Dynamic Difficulty</h3>
+                <p>AI-driven complexity levels that adapt to your goals, from casual review to intensive examination.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon-box"><i data-lucide="bar-chart-3"></i></div>
+                <h3>Progress Analytics</h3>
+                <p>Track your performance over time with detailed history and score breakdowns for every session.</p>
+            </div>
         </div>
+    </main>
 
-        <div class="feature-box">
-            <div class="icon">📊</div>
-            <h3>Track Progress</h3>
-            <p>View your quiz history and scores</p>
-        </div>
-
-    </div>
-    <div>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <div class="flash {{ category }}">{{ message }}</div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
-    </div>
-
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash">
+                    <i data-lucide="check-circle" style="color: var(--primary);"></i>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 
     <script>
-        
-    const user = "{{ user }}";  // Flask variable
+        // Initialize Lucide icons
+        lucide.createIcons();
 
-    const startBtn = document.getElementById("startBtn");
-    const loginBtn = document.getElementById("loginBtn");
-
-    if (!user || user === "None") {
-        // Not logged in
-        startBtn.style.display = "none";
-    } else {
-        // Logged in
-        loginBtn.style.display = "none";
-    }
-</script>
+        // Flash message handling
+        setTimeout(() => {
+            const flashes = document.querySelectorAll('.flash');
+            flashes.forEach(f => {
+                f.style.opacity = '0';
+                f.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => f.remove(), 500);
+            });
+        }, 4000);
+    </script>
 </body>
-
-
 </html>

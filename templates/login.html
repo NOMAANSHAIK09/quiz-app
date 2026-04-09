@@ -2,130 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="login.css">
-
-    <style>
-        body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-
-/* Background Image */
-.background {
-    height: 100vh;
-    background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e") no-repeat center/cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Card */
-.login-card {
-    background: white;
-    padding: 30px;
-    width: 320px;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-    text-align: center;
-}
-
-/* Inputs */
-.login-card input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    outline: none;
-}
-
-/* Button */
-.login-card button {
-    width: 100%;
-    padding: 12px;
-    background: linear-gradient(to right, #3b82f6, #2563eb);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.login-card button:hover {
-    opacity: 0.9;
-}
-
-/* Signup text */
-.signup-text {
-    margin-top: 15px;
-    font-size: 14px;
-}
-
-.signup-text a {
-    color: #3b82f6;
-    text-decoration: none;
-}
-@media (max-width: 600px) {
-
-    .background {
-        height: auto;
-        padding: 20px 10px;
-        align-items: flex-start;
-    }
-
-    .login-card {
-        width: 95%;
-        padding: 20px;
-        border-radius: 12px;
-    }
-
-    .login-card input {
-        padding: 10px;
-        font-size: 14px;
-    }
-
-    .login-card button {
-        padding: 12px;
-        font-size: 14px;
-    }
-
-    .signup-text {
-        font-size: 13px;
-    }
-}
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | QuizMaster</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
+    <a href="/" class="back-btn"><i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i> Home</a>
 
-<div class="background">
+    <div class="auth-card">
+        <div class="header">
+            <div class="logo-icon"><i data-lucide="lock" style="width: 28px; height: 28px;"></i></div>
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Continue your learning journey</p>
+        </div>
 
-    <div class="login-card">
-        <form method="POST" action="/login">
-
-            <h2>Login</h2>
-
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-
-            <button type="submit">Login</button>
-
-            <p class="signup-text">
-                Don't have an account? <a href="{{ url_for('signup_page') }}">Sign up</a>
-            </p>
-
-        </form>
         {% with messages = get_flashed_messages(with_categories=true) %}
-  {% for category, message in messages %}
-    <p class="text-{{ category }} text-center mt-3">
-        {{ message }}
-    </p>
-  {% endfor %}
-{% endwith %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="/login">
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="name@example.com" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit">Sign In</button>
+        </form>
+
+        <div class="footer-links">
+            New here? <a href="{{ url_for('signup_page') }}">Create an account</a>
+        </div>
     </div>
 
-</div>
-
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>

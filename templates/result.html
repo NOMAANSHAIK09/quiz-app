@@ -1,239 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Result</title>
-    
-    <style>
-body {
-    font-family: 'Segoe UI', Arial;
-    margin: 0;
-    padding: 30px;
-
-    background: linear-gradient(135deg, #0f172a, #1e3a8a, #9333ea);
-    color: white;
-}
-
-/* Glow effect */
-body::before {
-    content: "";
-    position: fixed;
-    width: 400px;
-    height: 400px;
-    background: #3b82f6;
-    filter: blur(120px);
-    top: -100px;
-    left: -100px;
-    opacity: 0.5;
-}
-
-body::after {
-    content: "";
-    position: fixed;
-    width: 400px;
-    height: 400px;
-    background: #9333ea;
-    filter: blur(120px);
-    bottom: -100px;
-    right: -100px;
-    opacity: 0.5;
-}
-
-/* Result Box */
-.result-box {
-    text-align: center;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(15px);
-    padding: 40px;
-    border-radius: 20px;
-    width: 400px;
-    margin: auto;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-/* Title */
-.result-box h1 {
-    margin-bottom: 10px;
-}
-
-/* Score */
-.score {
-    font-size: 40px;
-    font-weight: bold;
-    margin: 20px 0;
-    color: #22c55e;
-}
-
-/* Button */
-a {
-    display: inline-block;
-    margin-top: 15px;
-    text-decoration: none;
-    background: linear-gradient(to right, #3b82f6, #9333ea);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 10px;
-    transition: 0.3s;
-}
-
-a:hover {
-    transform: scale(1.05);
-}
-
-/* Answer Section */
-.answers-section {
-    max-width: 800px;
-    margin: 40px auto;
-}
-
-/* Question Card */
-.question-card {
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(15px);
-    padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-/* Options */
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-li {
-    padding: 10px;
-    margin: 6px 0;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.08);
-}
-
-/* Correct */
-li[style*="green"] {
-    background: #dcfce7;
-    color: #166534 !important;
-    font-weight: bold;
-    border-left: 5px solid #22c55e;
-}
-
-/* Wrong */
-li[style*="red"] {
-    background: #fee2e2;
-    color: #991b1b !important;
-    border-left: 5px solid #ef4444;
-}
-
-/* Answer text */
-.answer-text {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #e2e8f0;
-}
-
-/* Divider */
-hr {
-    border: none;
-    height: 1px;
-    background: rgba(255,255,255,0.2);
-}
-@media (max-width: 600px) {
-
-    body {
-        padding: 15px 10px;
-    }
-
-    .result-box {
-        width: 95%;
-        padding: 25px;
-        border-radius: 15px;
-    }
-
-    .result-box h1 {
-        font-size: 22px;
-    }
-
-    .score {
-        font-size: 30px;
-    }
-
-    a {
-        width: 90%;
-        padding: 10px;
-        font-size: 14px;
-    }
-
-    .answers-section {
-        margin: 25px auto;
-        width: 95%;
-    }
-
-    .question-card {
-        padding: 15px;
-        border-radius: 12px;
-    }
-
-    .question-card p {
-        font-size: 14px;
-    }
-
-    li {
-        padding: 8px;
-        font-size: 13px;
-    }
-
-    .answer-text {
-        font-size: 12px;
-    }
-
-    hr {
-        margin: 15px 0;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Result | QuizMaster</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
+    <div class="summary-card">
+        <div class="score-circle">
+            <span class="score-value">{{ score }}</span>
+            <span class="score-total">out of {{ total }}</span>
+        </div>
+        
+        <h1>Quiz Complete</h1>
+        
+        {% set pct = (score / total) * 100 %}
+        {% if pct >= 80 %}
+            <div class="performance-tag tag-success">Excellent Achievement</div>
+        {% elif pct >= 50 %}
+            <div class="performance-tag tag-neutral">Good Progress</div>
+        {% else %}
+            <div class="performance-tag tag-danger">Keep Practicing</div>
+        {% endif %}
 
-<div class="result-box">
-    <h1>Quiz Result</h1>
-    <div class="score">{{ score }} / {{ total }}</div>
-
-    <a href="/">Go Home</a>
-</div>
-<div class="answers-section">
-   <h1 style="text-align: center;">Correct Answers</h1>
-
-   {% for q in questions %}
-{% set q_index = loop.index0 %}
-
-<div class="question-card">
-    <p><b>Q{{ loop.index }}:</b> {{ q.question }}</p>
-
-    <ul>
-        {% for opt in q.options %}
-      <li
-            {% if opt == correct_answers[q_index] and opt == user_answers[q_index] %}
-                style="color: green; font-weight: bold;"   
-            {% elif opt == user_answers[q_index] and opt != correct_answers[q_index] %}
-                style="color: red; font-weight: bold;"     
-            {% elif opt == correct_answers[q_index] %}
-                style="color: green;"                      
-            {% endif %}
-            >
-    {{ opt }}
-</li>
-        {% endfor %}
-    </ul>
-
-    <div class="answer-text">
-        <p>Your Answer: {{ user_answers[q_index] }}</p>
-        <p>Correct Answer: {{ correct_answers[q_index] }}</p>
+        <div class="btn-group">
+            <a href="/" class="btn btn-secondary">
+                <i data-lucide="home" style="width: 18px; height: 18px;"></i>
+                Home
+            </a>
+            <a href="{{ url_for('start_quiz') }}" class="btn btn-primary">
+                <i data-lucide="refresh-cw" style="width: 18px; height: 18px;"></i>
+                New Quiz
+            </a>
+        </div>
     </div>
 
-    <hr>
-</div>
-{% endfor %}
-</div>
+    <div class="review-container">
+        <h2 class="review-title">Detailed Review</h2>
 
+        {% for q in questions %}
+        {% set q_idx = loop.index0 %}
+        {% set is_correct = user_answers[q_idx]|lower == correct_answers[q_idx]|lower %}
+        
+        <div class="q-review-card">
+            <div class="q-header">
+                <div class="status-icon">
+                    {% if is_correct %}
+                        <i data-lucide="check-circle-2" style="color: var(--success);"></i>
+                    {% else %}
+                        <i data-lucide="x-circle" style="color: var(--danger);"></i>
+                    {% endif %}
+                </div>
+                <div class="question-text">
+                    {{ q.question }}
+                </div>
+            </div>
 
+            <div class="answer-box">
+                <div class="ans-pill">
+                    <span class="ans-label">Your Selection</span>
+                    <span class="ans-value {{ 'correct-val' if is_correct else 'wrong-val' }}">
+                        {{ user_answers[q_idx] if user_answers[q_idx] else 'No answer' }}
+                    </span>
+                </div>
+                {% if not is_correct %}
+                <div class="ans-pill">
+                    <span class="ans-label">Correct Answer</span>
+                    <span class="ans-value correct-val">{{ correct_answers[q_idx] }}</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
