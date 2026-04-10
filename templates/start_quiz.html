@@ -2,309 +2,66 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Setup Quiz</title>
-    <!-- <link rel="stylesheet" href="setup.css"> -->
-
-    <style>
-        /* body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f7fb;
-    text-align: center;
-} */
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #4f46e5, #3b82f6, #06b6d4);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.card {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 30px;
-    width: 400px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
-
-body::before {
-    content: "";
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    background: #60a5fa;
-    filter: blur(100px);
-    top: 10%;
-    left: 10%;
-    opacity: 0.4;
-}
-
-body::after {
-    content: "";
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    background: #22d3ee;
-    filter: blur(100px);
-    bottom: 10%;
-    right: 10%;
-    opacity: 0.4;
-}
-
-/* Container */
-.container {
-    padding: 50px 20px;
-}
-
-/* Top Icon */
-.icon {
-    font-size: 35px;
-    background: #3b82f6;
-    color: white;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    border-radius: 12px;
-    margin: auto;
-}
-
-/* Heading */
-h1 {
-    margin-top: 15px;
-    font-size: 32px;
-}
-
-.subtitle {
-    color: #fffefe;
-    margin-bottom: 30px;
-}
-
-/* Card */
-/* .card {
-    background: white;
-    width: 400px;
-    margin: auto;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
-    text-align: left;
-} */
-
-/* Labels */
-label {
-    font-weight: bold;
-    display: block;
-    margin-top: 15px;
-}
-
-/* Input */
-input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    margin-top: 8px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-}
-
-small {
-    color: #888;
-}
-
-/* Difficulty Buttons */
-.difficulty {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-}
-
-.difficulty input {
-    display: none;
-}
-
-.diff-btn {
-    flex: 1;
-    text-align: center;
-    padding: 10px;
-    border-radius: 10px;
-    background: #f1f5f9;
-    margin: 5px;
-    cursor: pointer;
-}
-
-/* Active (selected) */
-input:checked + .diff-btn {
-    background: #3b82f6;
-    color: white;
-}
-
-/* Button */
-button {
-    width: 100%;
-    margin-top: 25px;
-    padding: 14px;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    color: white;
-    background: linear-gradient(to right, #3b82f6, #9333ea);
-    cursor: pointer;
-}
-
-button:hover {
-    opacity: 0.9;
-}
-
-/* question div */
-
- .question-box {
-            background: white;
-            padding: 20px;
-            margin: 20px auto;
-            width: 600px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        h3 {
-            margin-bottom: 15px;
-        }
-
-        .option {
-            display: block;
-            margin: 8px 0;
-            cursor: pointer;
-        }
-
-        .submit-btn {
-            display: block;
-            margin: 30px auto;
-            padding: 12px 25px;
-            font-size: 16px;
-            background: #3b82f6;
-            color: white;
-            border: none;
-            border-radius: 10px;
-        }
-        @media (max-width: 600px) {
-
-    body {
-        height: auto;
-        padding: 20px 10px;
-        align-items: flex-start;
-    }
-
-    .card {
-        width: 95%;
-        padding: 20px;
-        border-radius: 15px;
-    }
-
-    h1 {
-        font-size: 24px;
-    }
-
-    .icon {
-        width: 50px;
-        height: 50px;
-        line-height: 50px;
-        font-size: 26px;
-    }
-
-    .subtitle {
-        font-size: 14px;
-    }
-
-    input[type="text"] {
-        padding: 10px;
-        font-size: 14px;
-    }
-
-    .difficulty {
-        flex-direction: column;
-    }
-
-    .diff-btn {
-        margin: 5px 0;
-        padding: 12px;
-    }
-
-    button {
-        padding: 12px;
-        font-size: 14px;
-    }
-
-    /* quiz questions */
-    .question-box {
-        width: 95%;
-        padding: 15px;
-    }
-
-    h3 {
-        font-size: 16px;
-    }
-
-    .option {
-        font-size: 14px;
-    }
-
-    .submit-btn {
-        width: 90%;
-        font-size: 14px;
-        padding: 12px;
-    }
-}
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Quiz | QuizMaster</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/setup.css') }}">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
+    <a href="/" class="back-link">
+        <i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i>
+        Back to Home
+    </a>
 
-<div class="container">
-
-    <!-- Icon -->
-    <div class="icon">📘</div>
-
-    <!-- Heading -->
-    <h1>Setup Your Quiz</h1>
-    <p class="subtitle">Customize your learning experience</p>
-
-    <!-- Card -->
     <div class="card">
+        <div class="header">
+            <div class="icon-circle">
+                <i data-lucide="settings-2" style="width: 32px; height: 32px;"></i>
+            </div>
+            <h1>Configure Quiz</h1>
+            <p class="subtitle">Customize your AI learning path</p>
+        </div>
+
         <form method="POST" action="/start_quiz">
-
-            <!-- Topic -->
-            <label>Quiz Topic</label>
-            <input type="text" name="topic" placeholder="e.g., JavaScript, World History, Biology..." required>
-            <small>Enter any topic you want to be quizzed on</small>
-
-            <!-- Difficulty -->
-            <label>Difficulty Level</label>
-
-            <div class="difficulty">
-                <input type="radio" name="difficulty" value="easy" id="easy">
-                <label for="easy" class="diff-btn">⚡ Easy</label>
-
-                <input type="radio" name="difficulty" value="medium" id="medium" checked>
-                <label for="medium" class="diff-btn active">⚡ Medium</label>
-
-                <input type="radio" name="difficulty" value="hard" id="hard">
-                <label for="hard" class="diff-btn">⚡ Hard</label>
+            <div class="form-group">
+                <label for="topic">Topic of Interest</label>
+                <input type="text" id="topic" name="topic" placeholder="e.g. World History, Python, Art" required autofocus>
             </div>
 
-            <!-- Button -->
-            <button type="submit">Generate Quiz ✨</button>
+            <div class="form-group">
+                <label>Complexity Level</label>
+                <div class="difficulty-selector">
+                    <div class="diff-option">
+                        <input type="radio" name="difficulty" value="easy" id="easy">
+                        <label for="easy" class="diff-label">Easy</label>
+                    </div>
+                    <div class="diff-option">
+                        <input type="radio" name="difficulty" value="medium" id="medium" checked>
+                        <label for="medium" class="diff-label">Medium</label>
+                    </div>
+                    <div class="diff-option">
+                        <input type="radio" name="difficulty" value="hard" id="hard">
+                        <label for="hard" class="diff-label">Expert</label>
+                    </div>
+                </div>
+            </div>
 
+            <button type="submit" class="submit-btn">
+                Generate Questions
+                <i data-lucide="wand-2" style="width: 18px; height: 18px;"></i>
+            </button>
         </form>
+
         {% if error %}
-    <p style="color:red; text-align:center;">{{ error }}</p>
-{% endif %}
+            <div style="margin-top: 20px; padding: 12px; background: #FEF2F2; border: 1px solid #FEE2E2; border-radius: 12px; color: #B91C1C; font-size: 0.85rem; text-align: center; font-weight: 600;">
+                {{ error }}
+            </div>
+        {% endif %}
     </div>
 
-    
-
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>

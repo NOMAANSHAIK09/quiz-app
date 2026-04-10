@@ -1,132 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Quiz History</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #eef2ff, #f8fafc);
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        h1 {
-            margin-top: 40px;
-            color: #3b82f6;
-        }
-
-        .table-container {
-            margin: 40px auto;
-            width: 80%;
-            max-width: 800px;
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            background: #3b82f6;
-            color: white;
-            padding: 12px;
-        }
-
-        td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        tr:hover {
-            background: #f1f5f9;
-        }
-
-        .no-data {
-            padding: 20px;
-            color: #777;
-        }
-
-        .back-btn {
-            display: inline-block;
-            margin: 20px;
-            padding: 10px 20px;
-            background: #3b82f6;
-            color: white;
-            border-radius: 10px;
-            text-decoration: none;
-        }
-
-        .back-btn:hover {
-            background: #2563eb;
-        }
-        @media (max-width: 600px) {
-
-    h1 {
-        font-size: 22px;
-        margin-top: 20px;
-    }
-
-    .table-container {
-        width: 95%;
-        padding: 15px;
-        margin: 20px auto;
-        border-radius: 12px;
-    }
-
-    table {
-        font-size: 13px;
-    }
-
-    th, td {
-        padding: 8px;
-    }
-
-    .back-btn {
-        padding: 10px 15px;
-        font-size: 14px;
-    }
-
-    /* Optional: horizontal scroll for table */
-    .table-container {
-        overflow-x: auto;
-    }
-}
-        
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My History | QuizMaster</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/history.css') }}">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
+    <div class="header">
+        <h1><i data-lucide="bar-chart-2" style="color: var(--primary);"></i> Performance History</h1>
+    </div>
 
-<h1>📊 My Quiz History</h1>
+    <div class="table-card">
+        {% if scores %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Topic</th>
+                    <th>Complexity</th>
+                    <th>Result</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in scores %}
+                <tr>
+                    <td style="font-weight: 700;">{{ s.topic }}</td>
+                    <td>
+                        <span class="badge {{ s.difficulty|lower }}">{{ s.difficulty }}</span>
+                    </td>
+                    <td><span class="score-pill">{{ s.score }}</span></td>
+                    <td style="color: var(--text-muted); font-size: 0.85rem;">{{ s.date.strftime('%Y-%m-%d') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <i data-lucide="inbox" style="width: 48px; height: 48px; margin-bottom: 16px; opacity: 0.5;"></i>
+            <p>No quiz history found. Start your first session!</p>
+        </div>
+        {% endif %}
+    </div>
 
-<div class="table-container">
-    {% if scores %}
-    <table>
-        <tr>
-            <th>Topic</th>
-            <th>Difficulty</th>
-            <th>Score</th>
-        </tr>
+    <a href="/" class="back-btn">
+        <i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i>
+        Return to Dashboard
+    </a>
 
-        {% for s in scores %}
-        <tr>
-            <td>{{ s.topic }}</td>
-            <td>{{ s.difficulty }}</td>
-            <td>{{ s.score }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    {% else %}
-        <div class="no-data">No quiz history yet 🚀</div>
-    {% endif %}
-</div>
-
-<a href="/" class="back-btn">🏠 Go Home</a>
-
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
