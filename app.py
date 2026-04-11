@@ -128,7 +128,7 @@ def start_quiz():
         # }
 
         payload = {
-            "model": "anthropic/claude-3-haiku",
+            "model": "openai/gpt-3.5-turbo",
             "messages": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": "Generate quiz"}
