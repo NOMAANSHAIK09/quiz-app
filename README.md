@@ -1,26 +1,27 @@
-# 🌿 TwaCare – AI Powered Skin Care Assistant
+# 🧠 AI Quiz Master – Dynamic Quiz Generator
 
-Smart skincare meets AI 🚀  
-Personalized skin solutions based on your skin type & concerns.
+An AI-powered web application that generates quizzes based on user-selected topics and difficulty levels.
 
 ---
 
 ## 📌 About the Project
 
-TwaCare is an AI-powered web application that helps users identify their skin concerns and provides personalized skincare suggestions. Users can input their skin type and issues, and the system intelligently generates recommendations.
+AI Quiz Master is a dynamic quiz web application where users can generate quizzes on any topic using AI. The system supports user authentication, stores quiz history, and provides performance tracking.
 
-This project combines AI and Web Development to create a practical and user-friendly solution.
+This project combines AI, backend development, and database management to create an interactive learning platform.
 
 ---
 
 ## ✨ Features
 
-- Skin type selection (Oily, Dry, Normal, Combination)
-- AI-based skin analysis and suggestions
-- Handles multiple skin concerns
-- Personalized recommendations
-- Clean and responsive UI
-- Fast and dynamic results
+- 🔐 User Login & Signup System  
+- 🧠 AI-generated quiz questions  
+- 🎯 Topic-based quiz generation  
+- 📊 Difficulty levels (Easy, Medium, Hard)  
+- 📈 Score calculation and result analysis  
+- 🗂 User quiz history tracking  
+- 👨‍💻 Admin dashboard (view users & performance)  
+- 📱 Responsive UI using Bootstrap  
 
 ---
 
@@ -36,29 +37,31 @@ Backend:
 - Python (Flask)
 
 Database:
-- SQLite / MySQL  
+- SQLite / PostgreSQL  
 
 AI Integration:
-- Gemini / OpenAI API  
+- OpenRouter / Gemini / OpenAI APIs  
 
 ---
 
 ## 🔄 How It Works
 
-1. User selects skin type and concerns  
-2. Data is sent to backend  
-3. AI processes the input  
-4. Generates recommendations  
-5. Results displayed to user  
+1. User registers or logs in  
+2. Enters quiz topic and selects difficulty  
+3. AI generates 10 MCQ questions  
+4. User answers the questions  
+5. System evaluates answers  
+6. Displays score and correct answers  
+7. Stores result in database  
 
 ---
 
 ## 🚀 Installation
 
-git clone https://github.com/your-username/twacare.git  
-cd twacare  
+git clone https://github.com/your-username/ai-quiz-app.git  
+cd ai-quiz-app  
 pip install -r requirements.txt  
-python app.py  
+python quizapp.py  
 
 ---
 
@@ -66,14 +69,16 @@ python app.py
 
 Create a .env file and add:
 
-API_KEY=your_api_key_here  
+API_KEY_1=your_api_key  
+API_KEY_2=your_api_key  
 SECRET_KEY=your_secret_key  
+DB_PASSWORD=your_database_password  
 
 ---
 
 ## 🌍 Deployment
 
-You can deploy this project on:
+This project can be deployed on:
 
 - Render  
 - Railway  
@@ -81,19 +86,26 @@ You can deploy this project on:
 
 ---
 
+## 📊 Database Structure
+
+- **Users Table** → stores user details  
+- **Scores Table** → stores quiz results, topic, difficulty, and date  
+
+---
+
 ## 🎯 Future Improvements
 
-- Mobile app version  
-- Skin progress tracking  
-- Product recommendations  
-- User authentication system  
-- Improve AI accuracy  
+- 📊 Leaderboard system  
+- 📱 Mobile-friendly UI improvements  
+- 🧾 Quiz PDF export  
+- 🧠 Answer explanations using AI  
+- ⚡ Performance optimization  
 
 ---
 
 ## ⚠️ Disclaimer
 
-This application provides AI-generated suggestions and is not a substitute for professional dermatological advice.
+AI-generated questions may not always be 100% accurate. This app is designed for learning and practice purposes.
 
 ---
 
