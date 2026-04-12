@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="submit-btn">
+            <button type="submit" class="submit-btn" onclick="flashmsg()">
                 Generate Questions
                 <i data-lucide="wand-2" style="width: 18px; height: 18px;"></i>
             </button>
@@ -62,6 +62,11 @@
 
     <script>
         lucide.createIcons();
+       
+function flashmsg() {
+    alert("Quiz will generate, please wait...");
+}
+
     </script>
 </body>
 </html>
