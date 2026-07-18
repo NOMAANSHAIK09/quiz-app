@@ -50,7 +50,7 @@ def generate_quiz_with_fallback(payload):
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = "09012007"
+app.config['SECRET_KEY'] = "9182216482"
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DB_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 ADMIN_EMAIL = os.getenv("ADMIN_G")
